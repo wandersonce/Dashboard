@@ -4,7 +4,7 @@ import { RiContactsLine, RiDashboardLine, RiGitMergeLine, RiInputMethodLine } fr
 
 export default function Sidebar() {
   return (
-    <Box as="aside" w="64" mr="80">
+    <Box as="aside" w="64" mr="8">
       <Stack spacing="12" align="flex-start">
         <Box>
           <Text font-weight="bold" color="gray.400" fontSize="small">GENERAL</Text>
