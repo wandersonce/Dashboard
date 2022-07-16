@@ -1,4 +1,4 @@
-import { Button, Stack } from '@chakra-ui/react'
+import { Box, Button, Stack } from '@chakra-ui/react'
 import React from 'react'
 
 export default function Pagination() {
@@ -10,6 +10,10 @@ export default function Pagination() {
       align="center"
       spacing="6"
     >
+      <Box>
+        <strong>0</strong> - <strong>10</strong> of <strong>100</strong>
+      </Box>
+      <Stack direction="row" spacing="2">
       <Button
         size="sm"
         fontSize="xs"
@@ -59,6 +63,8 @@ export default function Pagination() {
         >
           4
       </Button>
+
+      </Stack>
     </Stack>
   )
 }
