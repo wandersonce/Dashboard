@@ -1,9 +1,9 @@
 import React from 'react';
-import { Flex, Input, Text, Icon, HStack, Box, Avatar} from '@chakra-ui/react';
-import {RiNotificationLine, RiSearchLine, RiUserAddLine} from 'react-icons/ri'
+import { Flex} from '@chakra-ui/react';
 import Profile from './Header/Profile';
 import NotificationsNav from './Header/NotificationsNav';
 import SearchBox from './Header/SearchBox';
+import Logo from './Header/Logo';
 
 export default function Header() {
   return (
@@ -18,16 +18,7 @@ export default function Header() {
       align="center"
     >
 
- <Text
-        fontSize="3xl"
-        fontWeight="bold"
-        letterSpacing="tight"
-        w="64"
-      >
-        dashgo
-        <Text as="span" ml="1" color="pink.500">.</Text>
-      </Text>
-
+      <Logo />
       <SearchBox />
 
       <Flex align="center" ml="auto" >
