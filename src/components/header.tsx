@@ -3,6 +3,7 @@ import { Flex, Input, Text, Icon, HStack, Box, Avatar} from '@chakra-ui/react';
 import {RiNotificationLine, RiSearchLine, RiUserAddLine} from 'react-icons/ri'
 import Profile from './Header/Profile';
 import NotificationsNav from './Header/NotificationsNav';
+import SearchBox from './Header/SearchBox';
 
 export default function Header() {
   return (
@@ -27,22 +28,7 @@ export default function Header() {
         <Text as="span" ml="1" color="pink.500">.</Text>
       </Text>
 
-      <Flex
-        as="label"
-        flex="1"
-        py="4"
-        px="8"
-        ml="6"
-        maxWidth={400}
-        alignSelf="center"
-        color="gray.200"
-        position="relative"
-        bg="gray.800"
-        borderRadius="full"
-      >
-        <Input color="gray.50" px="4" mr="4" variant="unstyled" placeholder="Search in the platform" _placeholder={{color: "gray.400"}} />
-        <Icon  as={RiSearchLine} fontSize="20"/>
-      </Flex>
+      <SearchBox />
 
       <Flex align="center" ml="auto" >
         <NotificationsNav />
