@@ -4,6 +4,7 @@ import { RiAddLine, RiPencilLine } from 'react-icons/ri'
 import Sidebar from '../../components/Sidebar'
 import Pagination from '../../components/Pagination'
 import Header from '../../components/Header'
+import Link from 'next/link'
 
 
 export default function UserList() {
@@ -23,9 +24,11 @@ export default function UserList() {
             <Heading size="lg" fontWeight="normal">
               Users
             </Heading>
+            <Link href="/users/create" passHref>
               <Button as="a" size="sm" fontSize="sm" colorScheme="pink" leftIcon={<Icon as={RiAddLine} fontSize="20" />}>
                 Add New
               </Button>
+            </Link>
           </Flex>
           
           <Table colorScheme="whiteAlpha">
