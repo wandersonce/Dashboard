@@ -9,8 +9,8 @@ type SignInFormData = {
   password: string;
 }
 const singInFormSchema = yup.object().shape({
-  email: yup.string().required().email(),
-  password: yup.string().required(),
+  email: yup.string().required('Email is required').email('Invalid Email'),
+  password: yup.string().required('Password Required'),
 });
 
 export default function SignIn() {
