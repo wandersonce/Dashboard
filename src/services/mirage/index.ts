@@ -39,7 +39,7 @@ export function makeServer() {
       this.get('/users');
       this.post('/users');
 
-      this.namespace = 'api';
+      this.namespace = '';
       this.passthrough();
     }
   })
