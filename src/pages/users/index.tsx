@@ -7,12 +7,12 @@ import Sidebar from '../../components/Sidebar'
 import Pagination from '../../components/Pagination'
 import Header from '../../components/Header'
 import Link from 'next/link'
+import { api } from '../../services/api'
 
 
 export default function UserList() {
   const {data, isLoading, error} = useQuery(['users'], async () => {
-    const response = await fetch('http:localhost:3000/api/users')
-    const data = await response.json()
+    const {data} = await api.get('users')
     
     const users =  data.users.map(user => {
       return{
@@ -28,6 +28,8 @@ export default function UserList() {
     });
 
     return users;
+  }, {
+    staleTime: 1000 * 5, // 5 seconds
   })
 
 
