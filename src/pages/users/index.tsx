@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { Box, Button, Checkbox, Flex, Heading, Icon, Table, Tbody, Td, Text, Th, Thead, Tr, useBreakpointValue } from '@chakra-ui/react'
+import { Box, Button, Checkbox, Flex, Heading, Icon, Spinner, Table, Tbody, Td, Text, Th, Thead, Tr, useBreakpointValue } from '@chakra-ui/react'
 import { RiAddLine } from 'react-icons/ri'
 import {useQuery} from '@tanstack/react-query'
 
@@ -10,14 +10,13 @@ import Link from 'next/link'
 
 
 export default function UserList() {
-  const query = useQuery(['users'], async () => {
+  const {data, isLoading, error} = useQuery(['users'], async () => {
     const response = await fetch('http:localhost:3000/api/users')
     const data = await response.json()
     
     return data;
   })
 
-  console.log(query)
 
   const isWideVersion = useBreakpointValue({
     base: false,
@@ -46,7 +45,17 @@ export default function UserList() {
             </Link>
           </Flex>
           
-          <Table colorScheme="whiteAlpha">
+          { isLoading ? (
+            <Flex justify="center">
+              <Spinner />
+            </Flex>
+          ) : error ? (
+            <Flex justify="center">
+              <Text>Error getting data</Text>
+            </Flex>
+          ) : (
+            <>
+            <Table colorScheme="whiteAlpha">
             <Thead>
               <Tr>
                 <Th px={["4","4","6"]} color="gray.300" width="8">
@@ -78,6 +87,8 @@ export default function UserList() {
             </Tbody>
           </Table>
           <Pagination />
+          </>
+          )}
         </Box>
 
       </Flex>
