@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { Box, Button, Checkbox, Flex, Heading, Icon, Table, Tbody, Td, Text, Th, Thead, Tr, useBreakpointValue } from '@chakra-ui/react'
 import { RiAddLine } from 'react-icons/ri'
-import {useQuery} from 'react-query'
+import {useQuery} from '@tanstack/react-query'
 
 import Sidebar from '../../components/Sidebar'
 import Pagination from '../../components/Pagination'
@@ -10,7 +10,7 @@ import Link from 'next/link'
 
 
 export default function UserList() {
-  const query = useQuery('users', async () => {
+  const query = useQuery(['users'], async () => {
     const response = await fetch('http:localhost:3000/api/users')
     const data = await response.json()
     
