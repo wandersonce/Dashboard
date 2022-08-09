@@ -1,9 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { api } from "../api";
 
-export function useUsers(){
-  return(
-    useQuery(['users'], async () => {
+export async function getUsers(){
       const {data} = await api.get('users')
       
       const users =  data.users.map(user => {
@@ -20,7 +18,11 @@ export function useUsers(){
       });
   
       return users;
-    }, {
+    }
+
+export function useUsers(){
+  return(
+    useQuery(['users'], getUsers , {
       staleTime: 1000 * 5, // 5 seconds
     })
   
