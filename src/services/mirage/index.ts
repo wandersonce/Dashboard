@@ -1,5 +1,5 @@
 import React from 'react';
-import { createServer, Factory, Model} from 'miragejs';
+import { createServer, Factory, Model,Response} from 'miragejs';
 import { faker } from '@faker-js/faker';
 
 type User = {
@@ -46,7 +46,13 @@ export function makeServer() {
         const pageEnd = pageStart + Number(per_page);
 
         //return an object with and array of users -> users slice on page start until the page end
-        const users = schema.all('user').users.slice(pageStart, pageEnd);
+        const users = this.serialize(schema.all('user')).users.slice(pageStart, pageEnd);
+
+        return new Response(
+          200, 
+          {'x-total-count': String(total)},
+          {users}
+        )
       });
       this.post('/users');
 
