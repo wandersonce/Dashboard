@@ -49,11 +49,15 @@ export default function Pagination({
       </Box>
       <Stack direction="row" spacing="2">
 
-        <PaginationItem number={1} isCurrent />
-        <PaginationItem number={2}  />
-        <PaginationItem number={3}  />
-        <PaginationItem number={4}  />
-        <PaginationItem number={5}  />
+      {previousPage.length > 0 && previousPage.map(page => {
+        return <PaginationItem key={page} number={currentPage} />
+      })}
+      
+      <PaginationItem number={currentPage} isCurrent />
+
+      {nextPages.length > 0 && nextPages.map(page => {
+        return <PaginationItem key={page} number={currentPage} />
+      })}
 
       </Stack>
     </Stack>
