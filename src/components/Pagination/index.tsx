@@ -16,6 +16,7 @@ function generatePagesArray(from:number , to:number){
   .map((_, index) => {
     return from + index + 1;
   })
+  .filter(page => page > 0)
 }
 
 export default function Pagination({
@@ -27,7 +28,12 @@ export default function Pagination({
   const lastPage = Math.floor(totalCountOfRegisters /registerPerPage);
   
   const previousPage = currentPage > 1 
-    ? [
+    ? generatePagesArray(currentPage - 1 - siblingsCount, currentPage - 1)
+    : []
+
+    //get last number between current page and last page
+    const nextPages = currentPage < lastPage
+    ? generatePagesArray(currentPage, Math.min(currentPage + siblingsCount, lastPage))
     : []
   
   return (
