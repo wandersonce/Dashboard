@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Box, Button, ButtonSpinner, Checkbox, Flex, Heading, Icon, Spinner, Table, Tbody, Td, Text, Th, Thead, Tr, useBreakpointValue } from '@chakra-ui/react'
 import { RiAddLine, RiRefreshLine, RiSipLine } from 'react-icons/ri'
 import {useQuery} from '@tanstack/react-query'
@@ -11,6 +11,7 @@ import { useUsers } from '../../services/hooks/useUsers'
 
 
 export default function UserList() {
+  const [page, setPage] = useState(1);
   const {data, isLoading,isFetching, error ,refetch} = useUsers()
   const handleClick = () => {
     // manually refetch
@@ -98,7 +99,7 @@ export default function UserList() {
           <Pagination 
             totalCountOfRegisters={200}
             currentPage={5}
-            onPageChange={() => {}}
+            onPageChange={setPage}
           />
           </>
           )}
