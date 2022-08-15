@@ -12,20 +12,19 @@ import { useUsers } from '../../services/hooks/useUsers'
 
 export default function UserList() {
   const [page, setPage] = useState(1);
-  const {data, isLoading,isFetching, error ,refetch} = useUsers()
+  const {data, isLoading,isFetching, error ,refetch} = useUsers(page)
   const handleClick = () => {
     // manually refetch
     refetch();
   };
+
+  console.log(page)
 
   const isWideVersion = useBreakpointValue({
     base: false,
     lg:true
   })
 
-  useEffect(() => {
-
-  },[])
 
   return (
     <Box>
@@ -78,7 +77,7 @@ export default function UserList() {
               </Tr>
             </Thead>
             <Tbody>
-              {data.map( user => {
+              {data.users.map( user => {
                 return (
                   <Tr key={user.id}>
                     <Td px={["4","4","6"]}>
@@ -97,8 +96,8 @@ export default function UserList() {
             </Tbody>
           </Table>
           <Pagination 
-            totalCountOfRegisters={200}
-            currentPage={5}
+            totalCountOfRegisters={data.totalCount}
+            currentPage={page}
             onPageChange={setPage}
           />
           </>
