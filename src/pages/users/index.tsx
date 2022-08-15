@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from 'react'
-import { Box, Button, ButtonSpinner, Checkbox, Flex, Heading, Icon, Spinner, Table, Tbody, Td, Text, Th, Thead, Tr, useBreakpointValue } from '@chakra-ui/react'
+import { Link, Box, Button, ButtonSpinner, Checkbox, Flex, Heading, Icon, Spinner, Table, Tbody, Td, Text, Th, Thead, Tr, useBreakpointValue } from '@chakra-ui/react'
 import { RiAddLine, RiRefreshLine, RiSipLine } from 'react-icons/ri'
-import {useQuery} from '@tanstack/react-query'
 
 import Sidebar from '../../components/Sidebar'
 import Pagination from '../../components/Pagination'
 import Header from '../../components/Header'
-import Link from 'next/link'
+import NextLink from 'next/link'
 import { useUsers } from '../../services/hooks/useUsers'
+import { queryClient } from '../../services/queryClient'
+import { api } from '../../services/api'
 
 
 export default function UserList() {
@@ -25,6 +26,13 @@ export default function UserList() {
     lg:true
   })
 
+  async function handlePrefetchUser(userId:string){
+    await queryClient.prefetchQuery(['user', userId], async () => {
+      const response = await api.get(`users/${userId}`)
+
+      return response.data;
+    })
+  }
 
   return (
     <Box>
@@ -44,11 +52,11 @@ export default function UserList() {
               <Button onClick={handleClick} size="sm" bg="pink.400" mr="4">
                 <RiRefreshLine />
               </Button>
-              <Link href="/users/create" passHref>
+              <NextLink href="/users/create" passHref>
                 <Button as="a" size="sm" fontSize="sm" colorScheme="pink" leftIcon={<Icon as={RiAddLine} fontSize="20" />}>
                   Add New
                 </Button>
-              </Link>
+              </NextLink>
             </Box>
           </Flex>
           
@@ -85,7 +93,9 @@ export default function UserList() {
                     </Td>
                     <Td>
                       <Box>
-                        <Text fontWeight="bold">{user.name}</Text>
+                        <Link color="purple.400" onMouseEnter={() => handlePrefetchUser(user.id)}>                     
+                          <Text fontWeight="bold">{user.name}</Text>
+                        </Link>
                         <Text fontSize="sm" color="gray.300">{user.email}</Text>
                       </Box>
                     </Td>
