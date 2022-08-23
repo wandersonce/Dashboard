@@ -48,7 +48,10 @@ export function makeServer() {
         const pageEnd = pageStart + Number(per_page);
 
         //return an object with and array of users -> users slice on page start until the page end
-        const users = this.serialize(schema.all('user')).users.slice(pageStart, pageEnd);
+        const users = this.serialize(schema.all('user'))
+        .users
+        .sort((a,b) => a.createdAt - b.createdAt)
+        .slice(pageStart, pageEnd);
 
         return new Response(
           200, 
