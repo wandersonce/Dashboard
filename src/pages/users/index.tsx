@@ -6,14 +6,17 @@ import Sidebar from '../../components/Sidebar'
 import Pagination from '../../components/Pagination'
 import Header from '../../components/Header'
 import NextLink from 'next/link'
-import { useUsers } from '../../services/hooks/useUsers'
+import { getUsers, useUsers } from '../../services/hooks/useUsers'
 import { queryClient } from '../../services/queryClient'
 import { api } from '../../services/api'
+import { GetServerSideProps } from 'next'
 
 
-export default function UserList() {
+export default function UserList({users}) {
   const [page, setPage] = useState(1);
-  const {data, isLoading,isFetching, error ,refetch} = useUsers(page)
+  const {data, isLoading,isFetching, error ,refetch} = useUsers(page, {
+    initialData: users
+  })
   const handleClick = () => {
     // manually refetch
     refetch();
@@ -119,4 +122,13 @@ export default function UserList() {
       </Flex>
     </Box>
   )
+}
+
+export const getServerSideProps: GetServerSideProps = async () => {
+  const {users} = await getUsers(1);
+  return {
+    props:{
+      users
+    }
+  }
 }
