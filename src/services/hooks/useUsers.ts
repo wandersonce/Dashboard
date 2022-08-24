@@ -1,4 +1,4 @@
-import { useQuery, UseQueryOptions } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import { api } from "../api";
 
 type User = {
@@ -38,11 +38,10 @@ export async function getUsers(page:number) : Promise<GetUsersResponse> {
       return {users, totalCount};
     }
 
-export function useUsers(page:number, options: UseQueryOptions){
+export function useUsers(page:number){
   return(
     useQuery(['users', page], () => getUsers(page) , {
       staleTime: 1000 * 60 * 10, // 10 minutes
-      ...options
     })
   
   )
